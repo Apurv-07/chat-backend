@@ -10,6 +10,17 @@ const cors = require("cors");
 
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://chat-app-frontend-beta-eight.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
@@ -32,8 +43,11 @@ const server = app.listen(process.env.PORT || 5000, async () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: ["http://localhost:3000", "https://chat-app-frontend-beta-eight.vercel.app"],
-    methods: ["GET", "POST"],
+    origin: [
+      "http://localhost:3000",
+      "https://chat-app-frontend-beta-eight.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   },
 });
