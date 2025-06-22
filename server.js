@@ -10,12 +10,6 @@ const cors = require("cors");
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
-
 app.get("/", (req, res) => {
   res.send("hello world");
 });
@@ -38,19 +32,10 @@ const server = app.listen(process.env.PORT || 5000, async () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://chat-app-frontend-beta-eight.vercel.app",
-    ],
+    origin: ["http://localhost:3000", "https://chat-app-frontend-beta-eight.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },
-});
-
-app.use((req, res, next) => {
-  console.log("🔍 Request Origin:", req.headers.origin);
-  console.log("🔗 Request Referer:", req.headers.referer);
-  next();
 });
 
 io.on("connection", (socket) => {
