@@ -38,7 +38,7 @@ const server = app.listen(process.env.PORT || 5000, async () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://chat-app-frontend-beta-eight.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },
